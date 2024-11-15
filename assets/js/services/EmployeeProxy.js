@@ -1,12 +1,8 @@
 class EmployeeProxy {
-  constructor() {
-    this.apiUrl = "https://api.example.com/employees"; // Reemplázalo con tu API real
-  }
-
   // Método para obtener empleados
   async getEmployees() {
     try {
-      const response = await fetch(this.apiUrl);
+      const response = await fetch(URL_API + URL_EMPLOYEE);
       return await response.json();
     } catch (error) {
       console.error("Error al obtener empleados:", error);
@@ -16,7 +12,7 @@ class EmployeeProxy {
   // Método para crear un nuevo empleado
   async addEmployee(employee) {
     try {
-      const response = await fetch(this.apiUrl, {
+      const response = await fetch(URL_API, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +29,7 @@ class EmployeeProxy {
   // Método para actualizar un empleado
   async updateEmployee(employee) {
     try {
-      const response = await fetch(`${this.apiUrl}/${employee.id}`, {
+      const response = await fetch(`${URL_API}/${employee.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +46,7 @@ class EmployeeProxy {
   // Método para eliminar un empleado
   async deleteEmployee(id) {
     try {
-      const response = await fetch(`${this.apiUrl}/${id}`, {
+      const response = await fetch(`${URL_API}/${id}`, {
         method: "DELETE",
       });
 

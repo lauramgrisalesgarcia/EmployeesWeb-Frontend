@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const employeeProxy = new EmployeeProxy();
   const employeeView = new EmployeeView();
+  const employeeModel = new Employee();
   const employeeController = new EmployeeController(
     employeeView,
-    employeeProxy
+    employeeProxy,
+    employeeModel
   );
 
   employeeController.init();

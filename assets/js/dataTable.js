@@ -1,5 +1,4 @@
 function createDataTable(tableId) {
-  // new DataTable(`#${tableId}`);
   const table = new DataTable(`#${tableId}`, {
     language: {
       decimal: "",

@@ -1,13 +1,13 @@
 class EmployeeController {
-  constructor(view, proxy) {
+  constructor(view, proxy, model) {
     this.view = view;
     this.proxy = proxy;
-
+    this.model = model;
     this.view.onAddEmployee = this.addEmployee.bind(this);
   }
 
   async init() {
-    // const employees = await this.proxy.getEmployees();
+    const employees = await this.proxy.getEmployees();
     this.view.renderEmployees(employees);
   }
 
