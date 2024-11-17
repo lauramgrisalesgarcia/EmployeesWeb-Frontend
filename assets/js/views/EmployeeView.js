@@ -1,31 +1,92 @@
 class EmployeeView {
   constructor() {
     this.employeeList = document.getElementById("employee-list");
+    let todayDate = new Date();
+    this.dateOfBirth = document.getElementById("dateOfBirth");
+    this.dateOfBirth.setAttribute("min", this.setDateYears(todayDate, 65, 0));
+    this.dateOfBirth.setAttribute("max", this.setDateYears(todayDate, 18, 0));
+    this.setModalTitle("employeeModal");
+    this.action = false;
+    this.btnSubmit = document.querySelector("#btnSubmit");
+    this.form = document.querySelector("#employeeForm");
+    this.arrRole = new Array("Desarrollador", "Team Leader", "CTO");
 
     // this.addEmployeeBtn = document.getElementById("addEmployeeBtn");
     // this.nameInput = document.getElementById("name");
     // this.positionInput = document.getElementById("position");
+  }
 
-    // this.renderEmployees("lero");
+  bindAddEmployee(callback) {
+    this.btnSubmit.addEventListener("click", () => {
+      const formData = this.getFormData(this.form);
+      if (formData !== null) {
+        callback(formData);
+      }
+    });
+  }
+
+  validateForm(formElement) {
+    for (let i = 0; i < formElement.length; i++) {
+      if (formElement[i].type == "select-one") {
+        if (formElement[i].selectedIndex == 0) {
+          formElement[i].focus();
+          return false;
+        }
+      } else {
+        if (formElement[i].required == true) {
+          if (formElement[i].value.length == 0 && formElement[i].value == "") {
+            formElement[i].focus();
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  }
+
+  getFormData(formElement) {
+    if (this.validateForm(formElement)) {
+      //Recolects all the form's inputs type for create an object string
+      let inputList = formElement.querySelectorAll("input");
+      let selectList = formElement.querySelectorAll("select");
+      let jsonData = "{";
+      inputList.forEach((input) => {
+        jsonData += `"${input.id}":"${input.value}",`;
+      });
+      selectList.forEach((select) => {
+        jsonData += `"${select.id}":"${
+          select.options[select.selectedIndex].value
+        }",`;
+      });
+      jsonData = jsonData.substring(0, jsonData.length - 1);
+      jsonData += "}";
+      return JSON.parse(jsonData);
+    } else {
+      alert("Diligencia todos los campos");
+    }
+    return null;
   }
 
   renderEmployees(employees) {
     this.employeeList.innerHTML = "";
     var tbody = "";
-    employees.forEach((employee, index) => {
-      tbody += `
+    if (employees !== undefined && employees.length > 0) {
+      employees.forEach((employee, index) => {
+        tbody += `
       <tr>
         <th scope="row">
           <div>
             <input class="form-check-input" type="checkbox" id="checkbox1">
           </div>
         </th>
-        <th scope="row">${index + 1}</th>                
+        <th scope="row">${index + 1} </th>                
+        <td scope="row">${employee.identification} </td>                
         <td>${employee.name}</td>
         <td>${employee.surname}</td>
         <td>${employee.dateofBirth}</td>
         <td>${employee.email}</td>
-        <td>${employee.roleId}</td>
+        <td>${this.arrRole[employee.roleId - 1]}
+        </td>
         <td>
           <div class="actions-buttons">
             <a class="btn" data-bs-toggle="collapse" href="#navbarActions3" role="button" aria-expanded="false"
@@ -38,7 +99,8 @@ class EmployeeView {
             <div class="collapse navbar-collapse" id="navbarActions3">
               <ul class="navbar-nav ms-auto">
                 <li class="nav-item mx-0 mx-lg-1">
-                  <a class="nav-link py-2 px-0 px-lg-2 rounded" href="#portfolio">
+                  <a class="nav-link py-2 px-0 px-lg-2 rounded" data-bs-toggle="modal" data-bs-target="#employeeModal"
+            data-bs-title="Editar" data-action="true">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
                       fill="#FFFFFF">
                       <path
@@ -62,7 +124,8 @@ class EmployeeView {
           </div>
         </td>
       </tr>`;
-    });
+      });
+    }
     var table = `<table id="table-employees" class="table table-striped table-hover">
             <thead>
               <tr>
@@ -72,11 +135,12 @@ class EmployeeView {
                   </div>
                   </th>
                 <th scope="col">#</th>                
+                <th scope="col">Identificación</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
                 <th scope="col">Fecha de nacimiento</th>
                 <th scope="col">Email</th>
-                <th scope="col">Role</th>
+                <th scope="col">Rol</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
@@ -88,9 +152,8 @@ class EmployeeView {
     createDataTable("table-employees");
   }
 
-  clearInputs() {
-    this.nameInput.value = "";
-    this.positionInput.value = "";
+  clearForm() {
+    this.form.reset();
   }
 
   getEmployeeData() {
@@ -100,7 +163,7 @@ class EmployeeView {
     };
   }
 
-  handleAddEmployee() {
+  addEmployee() {
     const newEmployee = this.getEmployeeData();
     if (newEmployee.name && newEmployee.position) {
       this.onAddEmployee(newEmployee);
@@ -110,4 +173,30 @@ class EmployeeView {
 
   // Este método será definido en el controlador
   onAddEmployee(employee) {}
+
+  setDateYears(todayDate, time, type) {
+    let year = 0;
+    switch (type) {
+      case 0:
+        year = todayDate.getFullYear() - time;
+        break;
+      case 1:
+        year = todayDate.getFullYear() + time;
+    }
+    return `${year}-${todayDate.getMonth() + 1}-${todayDate.getDate()}`;
+  }
+
+  setModalTitle(modalName) {
+    const selectedModal = document.getElementById(modalName);
+    if (selectedModal) {
+      selectedModal.addEventListener("show.bs.modal", (event) => {
+        this.clearForm();
+        const button = event.relatedTarget;
+        const recipient = button.getAttribute("data-bs-title");
+        const modalTitle = selectedModal.querySelector(".modal-title");
+        modalTitle.textContent = `${recipient} empleado`;
+        this.action = JSON.parse(button.getAttribute("data-action"));
+      });
+    }
+  }
 }

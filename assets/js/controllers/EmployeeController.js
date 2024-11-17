@@ -3,21 +3,25 @@ class EmployeeController {
     this.view = view;
     this.proxy = proxy;
     this.model = model;
-    this.view.onAddEmployee = this.addEmployee.bind(this);
+    this.view.bindAddEmployee(this.addEmployee.bind(this));
   }
 
   async init() {
-    const employees = await this.proxy.getEmployees();
+    const employees = await this.model.fetchEmployees(this.proxy);
     this.view.renderEmployees(employees);
   }
 
   async addEmployee(employeeData) {
     const employee = new Employee(
-      Date.now(),
+      null,
+      employeeData.identification,
       employeeData.name,
-      employeeData.position
+      employeeData.surname,
+      employeeData.dateOfBirth,
+      employeeData.email,
+      employeeData.roleId
     );
-    await this.proxy.addEmployee(employee);
-    this.init(); // Recarga la lista de empleados
+    await employee.addEmployee(this.proxy);
+    this.init();
   }
 }

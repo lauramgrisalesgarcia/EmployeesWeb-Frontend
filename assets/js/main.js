@@ -9,13 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   employeeController.init();
+  const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+  );
+  const tooltipList = [...tooltipTriggerList].map(
+    (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+  );
 });
-
-// import EmployeeController from "../controllers/EmmployeeController.js";
-// // import("../../controllers/EmployeeController.js").then((EmployeeController) => {
-// // window.addEventListener("load", () => {
-// alert("Hola");
-// var employeeController = new EmployeeController();
-// employeeController.init();
-// // });
-// // });
