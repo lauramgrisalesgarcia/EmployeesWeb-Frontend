@@ -128,3 +128,7 @@ table .btn-group .btn-outline-danger:hover {
     transform: translate(0px, -4px);
   }
 }
+
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+  background-color: #2b0548 !important;
+}

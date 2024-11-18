@@ -29,7 +29,11 @@ function getFormData(formElement) {
     jsonData += "}";
     return JSON.parse(jsonData);
   } else {
-    alert("Diligencia todos los campos");
+    showAlert(
+      "Diligencia todos los campos",
+      "Confirma que tenga la estructura correcta",
+      "error"
+    );
   }
   return null;
 }
@@ -50,6 +54,11 @@ function validateForm(formElement) {
         formElement[i].focus();
         return false;
       }
+    } else if (formElement[i].type == "email") {
+      if (!validateEmail(formElement[i].value)) {
+        formElement[i].focus();
+        return false;
+      }
     } else {
       if (formElement[i].required == true) {
         if (formElement[i].value.length == 0 && formElement[i].value == "") {
@@ -60,4 +69,9 @@ function validateForm(formElement) {
     }
   }
   return true;
+}
+
+function validateEmail(email) {
+  const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  return pattern.test(email);
 }

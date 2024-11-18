@@ -11,11 +11,12 @@ class EmployeeView {
     );
     this.setModalTitle();
     this.action = false;
-    this.btnSubmit = document.querySelector("#btnSubmit");
-    this.form = document.querySelector("#employeeForm");
+    this.btnSubmit = document.getElementById("btnSubmit");
+    this.form = document.getElementById("employeeForm");
     this.arrRole = new Array("Desarrollador", "Team Leader", "CTO");
     this.btnDeleteAll = document.querySelector("#btnDeleteAll");
     this.checkedRows = new Array();
+    this.checkboxes = new Array();
   }
 
   bindAddEmployee(callback) {
@@ -37,29 +38,36 @@ class EmployeeView {
     });
   }
 
-  bindDeleteEmployee(callback) {
-    this.employeeList.addEventListener("click", (event) => {
+  async bindDeleteEmployee(callback) {
+    this.employeeList.addEventListener("click", async (event) => {
       const button = event.target.closest("button.btn-delete");
       if (button) {
-        const employeeId = button.getAttribute("data-id");
-        callback(employeeId);
+        const response = await showConfirmAlert(
+          "¿Está seguro que desea eliminar?",
+          "Esta acción no se puede deshacer",
+          "warning"
+        );
+        if (response) {
+          const employeeId = button.getAttribute("data-id");
+          callback(employeeId);
+        }
       }
     });
   }
 
-  bindDeleteEmployees(callback) {
-    this.btnDeleteAll.addEventListener("click", (event) => {
+  async bindDeleteEmployees(callback) {
+    this.btnDeleteAll.addEventListener("click", async (event) => {
       const button = event.target.closest("button.btn-delete-all");
       if (button) {
-        const checkboxes = this.employeeList.querySelectorAll(
-          'input[type="checkbox"]'
+        const response = await showConfirmAlert(
+          "¿Está seguro que desea eliminar?",
+          "Esta acción no se puede deshacer",
+          "warning"
         );
-        checkboxes.forEach((checkbox) => {
-          if (checkbox.checked) {
-            this.checkedRows.push(parseInt(checkbox.getAttribute("data-id")));
-          }
-        });
-        callback(this.checkedRows);
+        if (response) {
+          this.initChecks();
+          callback(this.checkedRows);
+        }
       }
     });
   }
@@ -68,6 +76,8 @@ class EmployeeView {
     this.employeeList.addEventListener("click", (event) => {
       if (event.target.id == "checkboxAll") {
         this.checkAllRows(event.target.checked);
+      } else if (event.target.type == "checkbox") {
+        this.initChecks();
       }
     });
   }
@@ -146,6 +156,7 @@ class EmployeeView {
           </table>`;
     this.employeeList.innerHTML = table;
     createDataTable("table-employees");
+    this.initChecks();
   }
 
   setDateYears(todayDate, time, type) {
@@ -199,12 +210,32 @@ class EmployeeView {
     });
   }
 
-  checkAllRows(selected) {
-    const checkboxes = this.employeeList.querySelectorAll(
-      'input[type="checkbox"]'
+  initChecks() {
+    this.checkedRows = [];
+    this.checkboxes = this.employeeList.querySelectorAll(
+      'input[type="checkbox"]:not(#checkboxAll)'
     );
-    checkboxes.forEach((checkbox) => {
+    this.checkboxes.forEach((checkbox) => {
+      let checkdId = parseInt(checkbox.getAttribute("data-id"));
+      if (checkbox.checked) {
+        if (this.checkedRows.indexOf(checkdId) < 0) {
+          this.checkedRows.push(checkdId);
+        }
+      } else {
+        if (this.checkedRows.indexOf(checkdId) >= 0) {
+          this.checkedRows.splice(this.checkedRows.indexOf(checkdId), 1);
+        }
+      }
+    });
+    this.checkedRows.length > 0
+      ? this.btnDeleteAll.removeAttribute("disabled")
+      : this.btnDeleteAll.setAttribute("disabled", true);
+  }
+
+  checkAllRows(selected) {
+    this.checkboxes.forEach((checkbox) => {
       checkbox.checked = selected;
     });
+    this.initChecks();
   }
 }

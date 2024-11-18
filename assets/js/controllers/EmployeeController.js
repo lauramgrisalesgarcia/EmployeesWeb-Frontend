@@ -30,12 +30,12 @@ class EmployeeController {
         );
         const response = await employee.addEmployee(this.proxy);
         if (response && this.isValidJson(response)) {
-          alert("Empleado creado");
+          showAlert("Empleado creado", null, "success");
           this.view.closeModal();
           this.init();
         }
       } catch (error) {
-        alert("Ha ocurrido un error. Intente nuevamente");
+        showAlert("Ha ocurrido un error", "Intente nuevamente", "error");
       }
     } else {
       try {
@@ -51,12 +51,12 @@ class EmployeeController {
         const employeeId = parseInt(employeeData.id, 10);
         const response = await employee.updateEmployee(this.proxy, employeeId);
         if (response) {
-          alert("Empleado actualizado");
+          showAlert("Empleado actualizado", null, "success");
           this.view.closeModal();
           this.init();
         }
       } catch (error) {
-        alert("Ha ocurrido un error. Intente nuevamente");
+        showAlert("Ha ocurrido un error", "Intente nuevamente", "error");
       }
     }
   }
@@ -70,7 +70,7 @@ class EmployeeController {
         this.view.disableInputs(true);
       }
     } catch (error) {
-      alert("Ha ocurrido un error. Intente nuevamente");
+      showAlert("Ha ocurrido un error", "Intente nuevamente", "error");
     }
   }
 
@@ -79,11 +79,11 @@ class EmployeeController {
       employeeId = parseInt(employeeId, 10);
       const response = await this.model.deleteEmployee(this.proxy, employeeId);
       if (response) {
-        alert("Empleado eliminado");
+        showAlert("Empleado eliminado", null, "success");
         this.init();
       }
     } catch (error) {
-      alert("Ha ocurrido un error. Intente nuevamente");
+      showAlert("Ha ocurrido un error", "Intente nuevamente", "error");
     }
   }
 
@@ -93,12 +93,16 @@ class EmployeeController {
         this.proxy,
         employeesId
       );
-      if (response) {
-        alert("Empleado x eliminado");
+      if (response && this.isValidJson(response)) {
+        showAlert(
+          response.message,
+          `Se han eliminado ${response.deletedIds.length} registro(s)`,
+          "success"
+        );
         this.init();
       }
     } catch (error) {
-      alert("Ha ocurrido un error. Intente nuevamente");
+      showAlert("Ha ocurrido un error", "Intente nuevamente", "error");
     }
   }
 
