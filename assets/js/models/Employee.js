@@ -9,6 +9,10 @@ class Employee {
     this.roleId = roleId;
   }
 
+  setId(employeeId) {
+    this.id = employeeId;
+  }
+
   toAPIFormat() {
     return {
       identification: this.identification,
@@ -25,27 +29,26 @@ class Employee {
     return this.employees;
   }
 
-  // Agregar un nuevo empleado
+  async fetchEmployee(proxy, employeeId) {
+    this.employee = await proxy.getEmployee(employeeId);
+    return this.employee;
+  }
+
   async addEmployee(proxy) {
     const employeeData = this.toAPIFormat();
     return await proxy.addEmployee(employeeData);
   }
 
-  // Actualizar un empleado
-  async updateEmployee(employee) {
-    const updatedEmployee = await proxy.updateEmployee(employee);
-    const index = this.employees.findIndex(
-      (emp) => emp.id === updatedEmployee.id
-    );
-    if (index !== -1) {
-      this.employees[index] = updatedEmployee;
-    }
-    return updatedEmployee;
+  async updateEmployee(proxy, employeeId) {
+    const employeeData = this.toAPIFormat();
+    return await proxy.updateEmployee(employeeData, employeeId);
   }
 
-  // Eliminar un empleado
-  async deleteEmployee(id) {
-    await proxy.deleteEmployee(id);
-    this.employees = this.employees.filter((emp) => emp.id !== id);
+  async deleteEmployee(proxy, employeeId) {
+    return await proxy.deleteEmployee(employeeId);
+  }
+
+  async deleteEmployees(proxy, employeesId) {
+    return await proxy.deleteEmployees(employeesId);
   }
 }

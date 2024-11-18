@@ -55,160 +55,30 @@
     <div class="container">
       <h2 class="page-section-heading text-center text-primary text-uppercase mb-3">Administra el equipo</h2>
       <div class="row justify-content-end">
-        <div class="col-auto mb-2" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Añadir empleado"
-          data-bs-custom-class="custom-tooltip">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeModal"
-            data-bs-title="Añadir" data-action="false">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-              <path
-                d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z" />
-            </svg>
-          </button>
+        <div class="col-auto btn-group btn-group-sm" role="group" aria-label="Acciones">
+          <div class="col-auto mb-2" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Añadir empleado"
+            data-bs-custom-class="custom-tooltip">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeModal"
+              data-bs-title="Añadir" data-action="false">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                fill="#FFFFFF">
+                <path
+                  d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z" />
+              </svg>
+            </button>
+          </div>
+          <div class="col-auto mb-2" data-bs-toggle="tooltip" data-bs-placement="top"
+            data-bs-title="Eliminar seleccionados" data-bs-custom-class="custom-tooltip">
+            <button id="btnDeleteAll" type="button" class="btn btn-danger btn-delete-all">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                fill="#e8eaed">
+                <path
+                  d="M640-520v-80h240v80H640Zm-280 40q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z" />
+              </svg>
+            </button>
+          </div>
         </div>
         <div id="employee-list" class="table-responsive align-self-center">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">Fecha de nacimiento</th>
-              <th scope="col">Email</th>
-              <th scope="col">Role</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>23-05-1986</td>
-              <td>otto.mark@moraenterpise.com</td>
-              <td>CTO</td>
-              <td>
-                <div class="actions-buttons">
-                  <a class="btn" data-bs-toggle="collapse" href="#navbarActions1" role="button" aria-expanded="false"
-                    aria-controls="navbarActions1" aria-label="Acciones"><svg xmlns="http://www.w3.org/2000/svg"
-                      height="24px" viewBox="0 -960 960 960" width="24px" fill="#321D71">
-                      <path
-                        d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" />
-                    </svg>
-                  </a>
-                  <div class="collapse navbar-collapse" id="navbarActions1">
-                    <ul class="navbar-nav ms-auto">
-                      <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-2 px-0 px-lg-2 rounded" href="#portfolio">
-                          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                            fill="#FFFFFF">
-                            <path
-                              d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                          </svg>
-                          <small>&nbsp;Editar</small>
-                        </a>
-                      </li>
-                      <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-2 px-0 px-lg-2 rounded" href="#about">
-                          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                            fill="#EA3323">
-                            <path
-                              d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                          </svg>
-                          <small>&nbsp;Eliminar</small>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>03-09-1991</td>
-              <td>thornton.jacob@moraenterpise.com</td>
-              <td>Team Leader</td>
-              <td>
-                <div class="actions-buttons">
-                  <a class="btn" data-bs-toggle="collapse" href="#navbarActions2" role="button" aria-expanded="false"
-                    aria-controls="navbarActions2" aria-label="Acciones"><svg xmlns="http://www.w3.org/2000/svg"
-                      height="24px" viewBox="0 -960 960 960" width="24px" fill="#321D71">
-                      <path
-                        d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" />
-                    </svg>
-                  </a>
-                  <div class="collapse navbar-collapse" id="navbarActions2">
-                    <ul class="navbar-nav ms-auto">
-                      <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-2 px-0 px-lg-2 rounded" href="#portfolio">
-                          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                            fill="#FFFFFF">
-                            <path
-                              d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                          </svg>
-                          <small>&nbsp;Editar</small>
-                        </a>
-                      </li>
-                      <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-2 px-0 px-lg-2 rounded" href="#about">
-                          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                            fill="#EA3323">
-                            <path
-                              d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                          </svg>
-                          <small>&nbsp;Eliminar</small>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>Bird</td>
-              <td>16-10-1991</td>
-              <td>bird.larry@moraenterpise.com</td>
-              <td>Desarrollador</td>
-              <td>
-                <div class="actions-buttons">
-                  <a class="btn" data-bs-toggle="collapse" href="#navbarActions3" role="button" aria-expanded="false"
-                    aria-controls="navbarActions3" aria-label="Acciones"><svg xmlns="http://www.w3.org/2000/svg"
-                      height="24px" viewBox="0 -960 960 960" width="24px" fill="#321D71">
-                      <path
-                        d="M480-160q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm0-240q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm0-240q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Z" />
-                    </svg>
-                  </a>
-                  <div class="collapse navbar-collapse" id="navbarActions3">
-                    <ul class="navbar-nav ms-auto">
-                      <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-2 px-0 px-lg-2 rounded" href="#portfolio">
-                          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                            fill="#FFFFFF">
-                            <path
-                              d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                          </svg>
-                          <small>&nbsp;Editar</small>
-                        </a>
-                      </li>
-                      <li class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-2 px-0 px-lg-2 rounded" href="#about">
-                          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
-                            fill="#EA3323">
-                            <path
-                              d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                          </svg>
-                          <small>&nbsp;Eliminar</small>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-          </table> -->
         </div>
       </div>
   </section>
@@ -227,27 +97,29 @@
               <input id="id" type="hidden" value="0">
               <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <label for="identification" class="form-label">Identificación</label>
-                <input type="text" class="form-control" id="identification" minlength="4" maxlength="15" required>
+                <input type="text" class="form-control not-editable" id="identification" name="identification"
+                  minlength="4" maxlength="15" required>
               </div>
               <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <label for="name" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="name" minlength="4" maxlength="100" required>
+                <input type="text" class="form-control" id="name" minlength="4" maxlength="100" autocomplete="name"
+                  required>
               </div>
               <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <label for="surname" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="surname">
+                <input type="text" class="form-control" id="surname" name="surname">
               </div>
               <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <label for="dateOfBirth" class="form-label">Fecha de nacimiento</label>
-                <input type="date" class="form-control" id="dateOfBirth" required>
+                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
               </div>
               <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <label for="email" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" required>
+                <input type="email" class="form-control" id="email" name="email" autocomplete="email" required>
               </div>
               <div class="col-12 col-md-6 col-lg-4 mb-3">
                 <label for="roleId" class="form-label">Rol</label>
-                <select class="form-select" id="roleId" required>
+                <select class="form-select" id="roleId" name="roleId" required>
                   <option selected>Seleccione</option>
                   <option value="1">Desarrollador</option>
                   <option value="2">Team Leader</option>
@@ -266,7 +138,7 @@
   </div>
 
   <script src="assets/vendor/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
-  <!-- DatTable CDN -->
+  <!-- DataTable CDN -->
   <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
     integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
   <script

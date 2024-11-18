@@ -19,6 +19,6 @@ function createDataTable(tableId) {
       },
     },
     order: [[1, "desc"]],
-    columnDefs: [{ bSortable: false, aTargets: [0, 7] }],
+    columnDefs: [{ bSortable: false, aTargets: [0, 8] }],
   });
 }
