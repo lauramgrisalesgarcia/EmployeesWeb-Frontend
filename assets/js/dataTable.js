@@ -1,3 +1,6 @@
+// Description: General function to set the spanish options to the table, search function, pages...
+// Author: Laura Grisales
+// Date: 18/11/2024
 function createDataTable(tableId) {
   const table = new DataTable(`#${tableId}`, {
     language: {

@@ -1,3 +1,6 @@
+// Description: Employee View. Here we create all the view employee elements
+// Author: Laura Grisales
+// Date: 18/11/2024
 class EmployeeView {
   constructor() {
     this.employeeList = document.getElementById("employee-list");
@@ -19,6 +22,9 @@ class EmployeeView {
     this.checkboxes = new Array();
   }
 
+  // Description: Adds the listener to the add employee button and returns all the data from the form
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   bindAddEmployee(callback) {
     this.btnSubmit.addEventListener("click", () => {
       const formData = getFormData(this.form);
@@ -27,7 +33,9 @@ class EmployeeView {
       }
     });
   }
-
+  // Description: Adds the listener to the table when edit employee button is clicked and returns the employeeId selected
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   bindEditEmployee(callback) {
     this.employeeList.addEventListener("click", (event) => {
       const button = event.target.closest("button.btn-edit");
@@ -38,6 +46,9 @@ class EmployeeView {
     });
   }
 
+  // Description: Adds the listener to the table when delete employee button is clicked and returns the employeeId selected
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   async bindDeleteEmployee(callback) {
     this.employeeList.addEventListener("click", async (event) => {
       const button = event.target.closest("button.btn-delete");
@@ -55,6 +66,9 @@ class EmployeeView {
     });
   }
 
+  // Description: Adds the listener to the delete all employee button and returns the employeesId list from selected rows
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   async bindDeleteEmployees(callback) {
     this.btnDeleteAll.addEventListener("click", async (event) => {
       const button = event.target.closest("button.btn-delete-all");
@@ -72,6 +86,9 @@ class EmployeeView {
     });
   }
 
+  // Description: Adds the listener to the table when checkboxAll or a single check is clicked. If checkboxAll is clicked, checkAllRows checks all rows and creates a list of employeesId; else, clicking on a row just creates a list of employeesId.
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   toggleAllCheckboxes() {
     this.employeeList.addEventListener("click", (event) => {
       if (event.target.id == "checkboxAll") {
@@ -82,6 +99,9 @@ class EmployeeView {
     });
   }
 
+  // Description: Creates the employees table
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   renderEmployees(employees) {
     this.employeeList.innerHTML = "";
     var tbody = "";
@@ -159,6 +179,9 @@ class EmployeeView {
     this.initChecks();
   }
 
+  // Description: Sets the years min and max value for the input date
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   setDateYears(todayDate, time, type) {
     let year = 0;
     switch (type) {
@@ -171,6 +194,9 @@ class EmployeeView {
     return `${year}-${todayDate.getMonth() + 1}-${todayDate.getDate()}`;
   }
 
+  // Description: Sets the title of the modal depending on which button opens it and sets if you are creating or editing an employee
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   setModalTitle() {
     const selectedModal = document.getElementById(this.employeeModalName);
     if (selectedModal) {
@@ -186,14 +212,23 @@ class EmployeeView {
     }
   }
 
+  // Description: Cleans the form
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   clearForm() {
     this.form.reset();
   }
 
+  // Description: Cloase the modal
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   closeModal() {
     this.employeeModal.hide();
   }
 
+  // Description: Finds all the tooltips and initializes them so that they are visible
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   setTooltips() {
     const tooltipTriggerList = document.querySelectorAll(
       '[data-bs-toggle="tooltip"]'
@@ -203,6 +238,9 @@ class EmployeeView {
     );
   }
 
+  // Description: Disables/Enables the no editables inputs depending if youare creating or editing
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   disableInputs(enabled) {
     const disabledInputs = this.form.querySelectorAll(".not-editable");
     disabledInputs.forEach((input) => {
@@ -210,6 +248,9 @@ class EmployeeView {
     });
   }
 
+  // Description: Find all the check in the table and add the ids of the rows that are selected to create the list of employeesId and enable or disable the deleteAll button
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   initChecks() {
     this.checkedRows = [];
     this.checkboxes = this.employeeList.querySelectorAll(
@@ -232,6 +273,9 @@ class EmployeeView {
       : this.btnDeleteAll.setAttribute("disabled", true);
   }
 
+  // Description: Marks all checks as selected when the checkAll of the table header is pressed
+  // Author: Laura Grisales
+  // Date: 18/11/2024
   checkAllRows(selected) {
     this.checkboxes.forEach((checkbox) => {
       checkbox.checked = selected;

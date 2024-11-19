@@ -1,3 +1,6 @@
+// Description: General function to show alert with confirmation
+// Author: Laura Grisales
+// Date: 18/11/2024
 function showConfirmAlert(title, text, icon) {
   return Swal.fire({
     title: title,
@@ -13,6 +16,9 @@ function showConfirmAlert(title, text, icon) {
   });
 }
 
+// Description: General function to show information alert
+// Author: Laura Grisales
+// Date: 18/11/2024
 function showAlert(title, text, icon) {
   const Toast = Swal.mixin({
     toast: true,
